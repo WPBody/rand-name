@@ -160,16 +160,13 @@ class Rand_Name {
 
         if ( strlen( $view_name ) > 100 ) {
             // truncate string
-            $stringCut = substr( $view_name, 0, 100 );
+            $string_cut = substr( $view_name, 0, 100 );
 
             // make sure it ends in a word so assassinate doesn't become ass...
-            $view_name = substr( $stringCut, 0, strrpos( $stringCut, ' ' ) ) . '...'; 
+            $view_name = substr( $string_cut, 0, strrpos( $string_cut, ' ' ) ) . '...'; 
         }
         return $view_name;
     
     }
 
 }
-
-$wpbn_nombres = Rand_Name::rn_get_instance();
-$wpbn_nombres->rn_activate_components();

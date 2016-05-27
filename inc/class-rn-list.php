@@ -30,12 +30,12 @@ class RN_List {
     public function rn_set_names() {
 
         $rn_names = array(
-        'Alex'        => __( 'Protector of humanity. Origin : Greek', 'rand-name' ),
-        'Arthur'        => __( 'As strong as a bear. Origin : Gaelic', 'rand-name' ),
-        'Ana'        => __( 'Gracious, merciful. Origin : Hebrew', 'rand-name' ),
-        'Allison'        => __( 'Noble, graceful. Origin : French', 'rand-name' ),
-        'Arlene'        => __( 'Oath. Origin : Gaelic', 'rand-name' ),
-        'Alberto'        => __( 'Aristocratic and bright. Origin : Germanic, Italian, Portuguese, Spanish', 'rand-name' ),
+        'Alex'    => __( 'Protector of humanity. Origin : Greek', 'rand-name' ),
+        'Arthur'  => __( 'As strong as a bear. Origin : Gaelic', 'rand-name' ),
+        'Ana'     => __( 'Gracious, merciful. Origin : Hebrew', 'rand-name' ),
+        'Allison' => __( 'Noble, graceful. Origin : French', 'rand-name' ),
+        'Arlene'  => __( 'Oath. Origin : Gaelic', 'rand-name' ),
+        'Alberto' => __( 'Aristocratic and bright. Origin : Germanic, Italian, Portuguese, Spanish', 'rand-name' ),
     /*    'Barry'        => __( 'text', 'rand-name' ),
         'Bertha'        => __( 'text', 'rand-name' ),
         'Bill'        => __( 'text', 'rand-name' ),

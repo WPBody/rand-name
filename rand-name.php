@@ -24,7 +24,9 @@
  * Domain Path:       /languages
  */
 
+// If this file is called directly, abort!
 defined( 'ABSPATH' ) || exit;
+
 
 class Rand_Name {
 
@@ -52,9 +54,9 @@ class Rand_Name {
      */
     public function rn_activate_components() {
         require_once dirname( __FILE__ ) . '/inc/class-rn-list.php';
+        add_action( 'wp_enqueue_scripts'        , array( $this, 'rn_add_style' ) );
+        add_action( 'plugins_loaded'            , array( $this, 'rn_load_textdomain' ) );
         add_action( 'wp_before_admin_bar_render', array( $this, 'admin_bar_menu' ) );
-        add_action( 'wp_enqueue_scripts', array( $this, 'rn_add_style'      ) );
-        add_action( 'plugins_loaded'    , array( $this, 'rn_load_textdomain' ) );
     }
 
     /**
@@ -101,7 +103,7 @@ class Rand_Name {
         global $wp_version;
         if( $wp_version >= 4 ) {
            foreach( $list_names as $name => $meaning ) {
-                $get_name = "<p><b>{$name} : </b>{$meaning}</p>";
+                $get_name = "<p style='color:" . $this->rn_rand_color() . "'><b>{$name} : </b>{$meaning}</p>";
             }
         }
         return $get_name;
@@ -120,7 +122,7 @@ class Rand_Name {
             $args = array(
                 'id'     => 'wpb-names',
                 'patent' => false,
-                'title'  => $this->rn_random_name(),
+                'title'  => $this->rn_limit_string(),
                 'href'   => '#',
                 'meta'   => array(
                     'class'    => 'wpb-hide-names',
@@ -131,6 +133,40 @@ class Rand_Name {
             $wp_admin_bar->add_node( $args );
         }
 
+    }
+
+    /**
+     * Random text color
+     *
+     * @since 1.0
+     */
+    public function rn_rand_color() {
+
+        $colors = array( 'pink', 'yellow', 'red', 'brown', 'azure', 'orange', 'white' );
+        $color  = array_values( $colors );
+        shuffle( $color );
+        foreach( $color as $col ) {
+            $get_col = $col;
+        }
+        return $get_col;
+
+    }
+
+    public function rn_limit_string() {
+
+        $name = '<h1>Hello!</h1>';
+        // strip tags to avoid breaking any html
+        $view_name = strip_tags( $this->rn_random_name() . ' ' . $name );
+
+        if ( strlen( $view_name ) > 100 ) {
+            // truncate string
+            $stringCut = substr( $view_name, 0, 100 );
+
+            // make sure it ends in a word so assassinate doesn't become ass...
+            $view_name = substr( $stringCut, 0, strrpos( $stringCut, ' ' ) ) . '...'; 
+        }
+        return $view_name;
+    
     }
 
 }

@@ -56,7 +56,7 @@ class Rand_Name {
         require_once dirname( __FILE__ ) . '/inc/class-rn-list.php';
         add_action( 'wp_enqueue_scripts'        , array( $this, 'rn_add_style' ) );
         add_action( 'plugins_loaded'            , array( $this, 'rn_load_textdomain' ) );
-        add_action( 'wp_before_admin_bar_render', array( $this, 'admin_bar_menu' ) );
+        add_action( 'wp_before_admin_bar_render', array( $this, 'rn_admin_bar_menu' ) );
     }
 
     /**
@@ -65,7 +65,7 @@ class Rand_Name {
      * @since 1.0
      */
     public function rn_add_style() {
-        wp_enqueue_style( 'wpb-nombres', plugin_dir_url( __FILE__ ) . '/css/style.css' );
+        wp_enqueue_style( 'wpb-nombres' , plugin_dir_url( __FILE__ ) . '/css/style.css' );
         wp_enqueue_script( 'wpb-nombres', plugin_dir_url( __FILE__ ) . '/js/close.js' );
     }
 
@@ -93,18 +93,8 @@ class Rand_Name {
             $list_names[$mean] = $names[$mean];
         }
 
-        global $is_chrome;
-        if( $is_chrome ) {
-            $background = 'yellow';
-        } else {
-            $background = 'pink';
-        }
-
-        global $wp_version;
-        if( $wp_version >= 4 ) {
-           foreach( $list_names as $name => $meaning ) {
-                $get_name = "<p style='color:" . $this->rn_rand_color() . "'><b>{$name} : </b>{$meaning}</p>";
-            }
+        foreach( $list_names as $name => $meaning ) {
+            $get_name = "<p style='color:" . $this->rn_rand_color() . "'><b>{$name} : </b>{$meaning}</p>";
         }
         return $get_name;
 
@@ -115,7 +105,7 @@ class Rand_Name {
      *
      * @since 1.0
      */
-    public function admin_bar_menu() {
+    public function rn_admin_bar_menu() {
         
         if( is_front_page() || is_page() || is_single() ) {
             global $wp_admin_bar;
@@ -126,8 +116,8 @@ class Rand_Name {
                 'href'   => '#',
                 'meta'   => array(
                     'class'    => 'wpb-hide-names',
-                    'onclick'  => "hide(\"wpadminbar\")",
-                    'title'    => 'Click to hide names',
+                    'onclick'  => "hide(\"wp-admin-bar-wpb-names\")",
+                    'title'    => __( 'Click to hide names', 'rand-name' ),
                 ),
             );
             $wp_admin_bar->add_node( $args );
@@ -154,9 +144,8 @@ class Rand_Name {
 
     public function rn_limit_string() {
 
-        $name = '<h1>Hello!</h1>';
         // strip tags to avoid breaking any html
-        $view_name = strip_tags( $this->rn_random_name() . ' ' . $name );
+        $view_name = strip_tags( $this->rn_random_name() );
 
         if ( strlen( $view_name ) > 100 ) {
             // truncate string

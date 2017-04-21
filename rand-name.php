@@ -15,7 +15,7 @@
  * Plugin Name:       Rand Name
  * Plugin URI:        http://wpbody.com
  * Description:       A simple plugin that gives you the meaning of the names of people, as simple as that! Learn about people :)
- * Version:           1.0 (beta)
+ * Version:           1.1 (beta)
  * Author:            WPBody.com
  * Author URI:        http://wpbody.com/
  * License:           GPL-2.0+

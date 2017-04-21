@@ -28,10 +28,16 @@
 defined( 'ABSPATH' ) || exit;
 
 
-class Rand_Name {
+class Rand_Name
+{
 
     // Object instance
-    public static $instance;
+    protected static $_instance;
+
+    public function __construct() {
+
+        $this->rn_activate_components();
+    }
 
     /**
      * Make an instance of the class
@@ -40,10 +46,10 @@ class Rand_Name {
      */
     public function rn_get_instance() {
 
-        if( null == self::$instance ) {
-            self::$instance = new self();
+        if( null == self::$_instance ) {
+            self::$_instance = new self();
         }
-        return self::$instance;
+        return self::$_instance;
 
     }
 
@@ -65,8 +71,13 @@ class Rand_Name {
      * @since 1.0
      */
     public function rn_add_style() {
-        wp_enqueue_style( 'wpb-nombres' , plugin_dir_url( __FILE__ ) . '/css/style.css' );
-        wp_enqueue_script( 'wpb-nombres', plugin_dir_url( __FILE__ ) . '/js/close.js' );
+        
+        if ( is_admin() ) {
+
+            wp_enqueue_style( 'wpb-nombres' , plugin_dir_url( __FILE__ ) . '/css/style.css' );
+            wp_enqueue_script( 'wpb-nombres', plugin_dir_url( __FILE__ ) . '/js/close.js' );
+
+        }
     }
 
     /**

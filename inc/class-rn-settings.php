@@ -43,7 +43,6 @@ if ( ! class_exists( 'Rand_Name_Settings' ) ) {
          */
         public function components() {
 
-            require_once dirname( __FILE__ ) . '/inc/class-rn-list.php';
             add_action( 'admin_enqueue_scripts'     , array( $this, 'add_style' ) );
             add_action( 'wp_before_admin_bar_render', array( $this, 'admin_bar_menu' ) );
             add_action( 'plugins_loaded'            , array( $this, 'load_textdomain' ) );
